@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { Screen } from '../styled/main';
+import ProductCardComponent from "../components/product-card"
 
 const Home = () => {
   return (
@@ -12,7 +13,7 @@ const Home = () => {
 
         <main style={{width: "100%", height: "100%"}}>
             <Screen>
-                <h1>Olá!</h1>
+                <ProductCardComponent />
             </Screen>
 
         </main>
