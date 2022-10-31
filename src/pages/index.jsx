@@ -1,7 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
 import { Screen } from '../styled/main';
-import ProductCardComponent from "../components/product-card"
+import ProductCardComponent from "../components/product-card";
+import InteractiveRatingComponent from '../components/interactive-rating';
 
 const Home = () => {
   return (
@@ -16,11 +17,14 @@ const Home = () => {
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
             {/* For product-card.tsx */}
             <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet"></link>
+            {/* For interactive-rating.tsx */}
+            <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&display=swap" rel="stylesheet"></link>
         </Head>
 
         <main style={{width: "100%", height: "100%"}}>
             <Screen>
-                <ProductCardComponent />
+                {/* <ProductCardComponent /> */}
+                <InteractiveRatingComponent />
             </Screen>
 
         </main>
