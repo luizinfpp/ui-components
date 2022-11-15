@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const Screen = styled.div`
     background-color: #141519;
@@ -27,7 +28,7 @@ const Container = styled.div`
     position: relative;
 `
 
-const ContainerPages = styled.div`
+const ContainerPages = styled(motion.div)`
     width: 380px;
     height: 100%;
     position: absolute;
@@ -67,7 +68,7 @@ const ContainerPages = styled.div`
             font-size: 1.7rem;
         }
 
-        p{
+        p {
             text-align: center;
         }
     }
@@ -162,6 +163,7 @@ const InteractiveRatingComponent = () => {
     let buttons = Array.from({ length: 5 }, (_, i) => i + 1) //start in 1
 
     const [currentBtn, setCurrentBtn] = useState(0)
+    const [isSelected, setIsSelected] = useState(false)
 
     const RadioSelect = (key: number) => {
         setCurrentBtn(key)
@@ -170,40 +172,73 @@ const InteractiveRatingComponent = () => {
     return (
         <Screen>
             <Container>
-                {/* <ContainerPages>
-                    <span id="starContainer">
-                        <img src="interactive-rating-icon-star.svg" alt="Star" />
-                    </span>
-                    <h2>How did we do?</h2>
-                    <p>Please let us know how we did with your support request. All feedback is appreciated to help us improve our offering!</p>
-                    <RadioGroup>
-                        {
-                            buttons.map((b) => {
-                                return (
-                                    <div key={b} onClick={() => RadioSelect(b)} className={currentBtn == b? "selected" : ""}>
-                                        <p>{b}</p>
-                                    </div>
-                                );
-                            })
-                        }
-                    </RadioGroup>
-                    <button><p>Submit</p></button>
-                </ContainerPages> */}
-                <ContainerPages>
-                    <div id="thankYouContainer">
-                        <img
-                            src="interactive-rating-thank-you.svg"
-                            alt="Thank You"
-                        />
-                        <h4>You selected {currentBtn} of 5</h4>
-                        <h2>Thank you!</h2>
-                        <p>
-                            We appreciate you taking the time to give a rating.
-                            If you ever need more support, don’t hesitate to get
-                            in touch!
-                        </p>
-                    </div>
-                </ContainerPages>
+                <AnimatePresence>
+                    {!isSelected && (
+                        <ContainerPages
+                            initial={{ x: 100 }}
+                            animate={{ x: 0 }}
+                            exit={{ x: -100 }}
+                        >
+                            <span id="starContainer">
+                                <img
+                                    src="interactive-rating-icon-star.svg"
+                                    alt="Star"
+                                />
+                            </span>
+                            <h2>How did we do?</h2>
+                            <p>
+                                Please let us know how we did with your support
+                                request. All feedback is appreciated to help us
+                                improve our offering!
+                            </p>
+                            <RadioGroup>
+                                {buttons.map(b => {
+                                    return (
+                                        <div
+                                            key={b}
+                                            onClick={() => RadioSelect(b)}
+                                            className={
+                                                currentBtn == b
+                                                    ? 'selected'
+                                                    : ''
+                                            }
+                                        >
+                                            <p>{b}</p>
+                                        </div>
+                                    )
+                                })}
+                            </RadioGroup>
+                            <button
+                                onClick={() => {
+                                    setIsSelected(true)
+                                }}
+                            >
+                                <p>Submit</p>
+                            </button>
+                        </ContainerPages>
+                    )}
+                    {isSelected && (
+                        <ContainerPages
+                            initial={{ x: 100 }}
+                            animate={{ x: 0 }}
+                            exit={{ x: -100 }}
+                        >
+                            <div id="thankYouContainer">
+                                <img
+                                    src="interactive-rating-thank-you.svg"
+                                    alt="Thank You"
+                                />
+                                <h4>You selected {currentBtn} of 5</h4>
+                                <h2>Thank you!</h2>
+                                <p>
+                                    We appreciate you taking the time to give a
+                                    rating. If you ever need more support, don’t
+                                    hesitate to get in touch!
+                                </p>
+                            </div>
+                        </ContainerPages>
+                    )}
+                </AnimatePresence>
             </Container>
         </Screen>
     )
