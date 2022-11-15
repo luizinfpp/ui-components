@@ -4,4 +4,5 @@
 //     esModule: true
 // })
 
-module.exports = {}
+module.exports = {
+}
