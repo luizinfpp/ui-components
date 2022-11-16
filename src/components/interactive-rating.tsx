@@ -172,12 +172,13 @@ const InteractiveRatingComponent = () => {
     return (
         <Screen>
             <Container>
-                <AnimatePresence>
+                <AnimatePresence mode='wait'>
                     {!isSelected && (
                         <ContainerPages
-                            initial={{ x: 100 }}
+                            key="firstPage"
+                            initial={{ x: 500 }}
                             animate={{ x: 0 }}
-                            exit={{ x: -100 }}
+                            exit={{ x: -500 }}
                         >
                             <span id="starContainer">
                                 <img
@@ -219,9 +220,10 @@ const InteractiveRatingComponent = () => {
                     )}
                     {isSelected && (
                         <ContainerPages
-                            initial={{ x: 100 }}
+                            key="secondPage"
+                            initial={{ x: 500 }}
                             animate={{ x: 0 }}
-                            exit={{ x: -100 }}
+                            exit={{ x: -500 }}
                         >
                             <div id="thankYouContainer">
                                 <img
